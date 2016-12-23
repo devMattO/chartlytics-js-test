@@ -31,7 +31,7 @@ const resources = [{
         order: 20,
         name: 'Home',
       }
-    ]
+]
 
 class App extends Component {
   render() {
@@ -44,7 +44,15 @@ class App extends Component {
         </div>
         <div id="outer-container">
           {resources.map((el,index)=>{
-            console.log(el)
+            return (
+              <p key={index}>{
+                `"type": ${el.type},
+                "order": ${el.order},
+                "people": [
+                  ${el.name}
+                ]`
+              }</p>
+            )
           })}
         </div>
       </div>
