@@ -33,6 +33,36 @@ const resources = [{
       }
 ]
 
+let byDate = resources.slice(0);
+byDate.sort(function(a,b) {
+    return a.order - b.order;
+});
+console.log('by date:');
+console.log(byDate);
+
+let output_generator = (resources)=>{
+  return resources.map((el,index)=>{
+    console.log(el.type,'<----el.type');
+    if(el.type === 'Place'){
+      return {
+        type: el.type,
+        order: el.order,
+        name: el.name
+      }
+    } else {
+      return {
+        type: el.type,
+        order: el.order,
+        people: el.name
+      }
+    }
+  })
+}
+
+let output = output_generator(byDate)
+
+console.log(output.sort(),'muggah')
+
 class App extends Component {
   render() {
     console.log(resources,'<----resources');
@@ -46,10 +76,10 @@ class App extends Component {
           {resources.map((el,index)=>{
             return (
               <p key={index}>{
-                `"type": ${el.type},
+                `"type": "${el.type}",
                 "order": ${el.order},
                 "people": [
-                  ${el.name}
+                  "${el.name}"
                 ]`
               }</p>
             )
