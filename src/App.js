@@ -11,24 +11,7 @@ byOrder.sort((a,b) => {
     return a.order - b.order;
 });
 
-console.log(byOrder.type,'<----byOrder BEFORE FOR LOOP');
-
-// for (var i = 0; i < byOrder.length; i++) {
-//   if(byOrder[i].type === 'Person'){
-//     console.log(byOrder[i+1].type,'<----byOrder[i+1].type');
-//     if(byOrder[i+1].type === 'Person'){
-//       let newObj = {
-//         type: byOrder[i].type,
-//         order: byOrder[i].order,
-//         people: [byOrder[i].name, byOrder[i-1].name]
-//       }
-//       byOrder.splice( i-1, 2, newObj )
-//     }
-//   }
-// }
-
-// take array of type, if array has two people in a row,
-// splice one object out of the array and add the names together in one
+//change key names
 
 let output_generator = (resources) => {
   return resources.map(( el, index ) => {
@@ -51,11 +34,14 @@ let output_generator = (resources) => {
 let output = output_generator(byOrder)
 console.log(output,'output')
 
+
+//getting obj type to see who needs to be grouped together
 let object_type = output.map((el,index,arr)=>{
   return el.type
 })
 console.log(object_type,'<----object_type');
 
+//if two objects in a row are of the type `Person` return the index of the first object
 let concat_persons = object_type.map((el,index,arr)=>{
   if(el === "Person" && arr[index + 1] === "Person" ){
     return index
@@ -64,6 +50,7 @@ let concat_persons = object_type.map((el,index,arr)=>{
   }
 })
 
+//gather all index that need grouping
 let splice_index = []
 concat_persons.map((el,index,arr)=>{
   if(!isNaN(el)){
@@ -73,7 +60,10 @@ concat_persons.map((el,index,arr)=>{
     return false
   }
 })
+console.log(splice_index,'splice_index')
 
+// for each index listed it will delete that object and the following object and take the
+//first object's order number and return a new object with both names in the `people` array
 for (var i = 0; i < splice_index.length; i++) {
   let newObjArr = []
   newObjArr.push(output[splice_index[i]].people)
@@ -88,6 +78,7 @@ for (var i = 0; i < splice_index.length; i++) {
 
 console.log(output, 'new output')
 
+//creating component
 class AppJS extends Component {
   constructor(props) {
       super(props);
