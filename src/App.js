@@ -49,6 +49,7 @@ let output_generator = (resources) => {
 }
 
 let output = output_generator(byOrder)
+console.log(output,'output')
 
 let object_type = output.map((el,index,arr)=>{
   return el.type
@@ -76,13 +77,11 @@ concat_persons.map((el,index,arr)=>{
 for (var i = 0; i < splice_index.length; i++) {
   let newObjArr = []
   newObjArr.push(output[splice_index[i]].people)
-
-console.log(output[splice_index[i]].people,'<----splice_index[i]');
-  console.log(newObjArr,'<----newObjArr');
+  newObjArr.push(output[splice_index[i] + 1].people)
   let newObj = {
-    type: 'type',
-    order: 'order',
-    people: [newObjArr]
+    type: 'Person',
+    order: output[splice_index[i]].order,
+    people: newObjArr
   }
   output.splice(splice_index[i],2,newObj)
 }
